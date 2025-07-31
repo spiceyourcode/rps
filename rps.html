@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Rock Paper Scissor</title>
+  </head>
+  <body>
+    <section>
+      Here is a trick to the terminal
+      <p>f12</p>
+    </section>
+    <script defer>
+      // Constants
+      const CHOICES = ["rock", "paper", "scissor"];
+
+      // Function to generate a random number
+      function randomNumber() {
+        return Math.floor(Math.random() * CHOICES.length);
+      }
+
+      // Function to get the computer's choice
+      function getComputerChoice() {
+        return CHOICES[randomNumber()];
+      }
+
+      // Function to get the human's choice
+      function getHumanChoice() {
+        let input = prompt("Enter your response: Rock, Paper, or Scissor").toLowerCase().trim();
+        while (!CHOICES.includes(input)) {
+          input = prompt("Invalid input. Please enter Rock, Paper, or Scissor").toLowerCase();
+        }
+        return input;
+      }
+
+      // Function to play a round
+      function playRound(computerChoice, humanChoice) {
+        let winner = "";
+        if (computerChoice === humanChoice) {
+          winner = "It's a tie!";
+        } else if (
+          (computerChoice === "rock" && humanChoice === "scissor") ||
+          (computerChoice === "paper" && humanChoice === "rock") ||
+          (computerChoice === "scissor" && humanChoice === "paper")
+        ) {
+          winner = "Computer wins!";
+        } else {
+          winner = "You win!";
+        }
+        console.log(winner);
+        return winner;
+      }
+
+      // Function to play the game
+      function playGame() {
+        let counter = parseInt(prompt("Enter the number of rounds you want to play: "));
+        if (isNaN(counter) || counter <= 0) {
+          console.log("The value can only be a valid positive number");
+          return;
+        }
+
+        let computerScore = 0;
+        let humanScore = 0;
+        let ties = 0;
+
+        for (let i = 1; i <= counter; i++) {
+          let computerChoice = getComputerChoice();
+          let humanChoice = getHumanChoice();
+          let winner = playRound(computerChoice, humanChoice);
+
+          if (winner === "Computer wins!") {
+            computerScore++;
+          } else if (winner === "You win!") {
+            humanScore++;
+          } else {
+            ties++;
+          }
+        }
+
+        console.log(`Results: Computer ${computerScore}, Ties ${ties}, Your wins ${humanScore}`);
+      }
+
+      alert("Welcome to Rock Paper Scissor");
+      playGame();
+    </script>
+  </body>
+</html>
